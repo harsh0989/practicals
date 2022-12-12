@@ -1,0 +1,76 @@
+// FACTORIAL USING MACRO
+
+factorial macro n
+loop:
+mul n
+dec n
+jnz loop
+endm
+
+data segment
+num dw05h
+result dw ?
+data ends
+
+code segment
+assume ds:data,cs:code
+
+start:
+MOV AX,data
+MOV DS,AX
+MOV AX,0001h
+factorial num
+MOV result,AX
+
+end start
+code ends
+
+// FACTORIAL USING PROCEDURE
+
+data segment
+num dw05h
+result dw ?
+data ends
+
+code segment
+assume ds:data,cs:code
+
+start:
+MOV AX,data
+MOV DS,AX
+MOV AX,0001h
+CALL factorial
+int21h
+
+proc factorial near
+loop:
+mul num
+dec num
+jnz loop
+MOV result,AX
+factorial endp
+
+end start
+code ends
+
+// FACTORIAL (SIMPLE)
+
+DATA SEGMENT
+A DB 5
+fact DB ?
+DATA ENDS
+CODE SEGMENT
+         ASSUME DS:DATA,CS:CODE
+START:
+      MOV AX,DATA
+      MOV DS,AX
+      MOV AH,00
+      MOV AL,A
+ L1:  DEC A
+      MUL A
+      MOV CL,A
+      CMP CL,01
+      JNZ L1
+      MOV fact, AL 
+CODE ENDS
+END START
