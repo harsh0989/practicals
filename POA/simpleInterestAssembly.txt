@@ -1,0 +1,21 @@
+data segment
+    p dw 100
+    r dw 2
+    t dw 2
+    i dw ?
+ends
+
+code segment
+    assume ds:data cs:code
+    start:
+    mov ax,data
+    mov ds,ax
+    
+    mov ax,p
+    mul r
+    mul t
+    mov bx,0064h
+    div bx
+    mov i,ax
+ends
+end start
