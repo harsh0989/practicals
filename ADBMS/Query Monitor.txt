@@ -1,0 +1,48 @@
+# Simple 
+use sakila;
+
+explain(select * form actor);
+
+
+
+
+#Group by
+use sakila;
+
+explain(select count(city_id), city_id from city group by country_id);
+
+
+
+
+#Group by (having)
+use sakila;
+
+explain(select count(city_id), city_id from city group by country_id having city_id>100);
+
+
+
+
+#Aggregate
+use sakila;
+
+explain(select count(actor_id) from film_actor where actor_id>3);
+
+
+
+
+#Join
+use sakila;
+
+explain(select * from city join country on city.country_id = country.country_country_id);
+
+
+
+
+#Nested
+use sakila;
+
+explain(
+    select concat(first_name, " ", last_name) AS name, email from customer where customer_id IN
+        (select customer_id from rental where inventory_id
+            (select inventory_id from inventory where film_id in
+                (select film_id from film_category join category using (category_id) where category.name = "Action"))));
